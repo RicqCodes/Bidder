@@ -3,11 +3,6 @@ const opensea = require("opensea-js");
 require("dotenv").config();
 const OpenSeaPort = opensea.OpenSeaPort;
 const Network = opensea.Network;
-const {
-  RPCSubprovider,
-  PrivateKeyWalletSubprovider,
-  Web3ProviderEngine,
-} = require("@0x/subproviders");
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
@@ -33,19 +28,6 @@ if (
   );
   return;
 }
-
-const privateKeyWalletSubprovider = new PrivateKeyWalletSubprovider(
-  PRIVATE_KEY
-);
-
-const infuraRpcSubprovider = new RPCSubprovider(
-  "https://" + NETWORK + ".infura.io/v3/" + INFURA_KEY
-);
-
-const providerEngine = new Web3ProviderEngine();
-providerEngine.addProvider(privateKeyWalletSubprovider);
-providerEngine.addProvider(infuraRpcSubprovider);
-providerEngine.start();
 
 const provider = new HDWalletProvider({
   privateKeys: [PRIVATE_KEY],
